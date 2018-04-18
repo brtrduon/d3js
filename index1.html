@@ -13,29 +13,41 @@
     <body>
         <h2>Data Visualization</h2>
         <h2>Survivors by Passenger Class</h2>
+        <!-- survivors bar chart -->
         <div id='chartContainer2'>
             <script type='text/javascript'>
-                var svg2 = dimple.newSvg('#chartContainer2', 600, 400);
+                var svg = dimple.newSvg('#chartContainer2', 600, 400);
                 d3.csv('titanic1.csv', function(data) {
                     // create a chart by combining svg and data
-                    var ChartInstance = new dimple.chart(svg2, data);
+                    var ChartInstance = new dimple.chart(svg, data);
 
                     // set bounds
                     ChartInstance.setBounds(60, 30, 510, 305);
                     var x = ChartInstance.addCategoryAxis('x', 'Passenger Class');
                     x.addOrderRule('Type');
-
                     var y = ChartInstance.addPctAxis('y', 'Count');
-
                     var s = ChartInstance.addSeries('Status', dimple.plot.bar);
 
                     // add legend
                     ChartInstance.addLegend(60, 10, 510, 20, 'right');
-
                     ChartInstance.draw(1000);
                 });
             </script>
-
+        </div>
+        <!-- passenger share of each class pie chart -->
+        <div id='PieChartContainer'>
+            <h2>Passenger share by Class 1, Class 2, and Class 3</h2>
+            <script type='text/javascript'>
+                var svg1 = dimple.newSvg('#PieChartContainer', 590, 400);
+                d3.csv('titanic_train.csv', function(data) {
+                    var ChartInstance = new dimple.chart(svg1, data);
+                    ChartInstance.setBounds(20, 20, 460, 360);
+                    ChartInstance.addMeasureAxis('p', 'Passenger Class');
+                    ChartInstance.addSeries('Passenger Class', dimple.plot.pie);
+                    ChartInstance.addLegend(500, 20, 90, 300, 'Left');
+                    ChartInstance.draw();
+                });
+            </script>
         </div>
     </body>
 </html>
